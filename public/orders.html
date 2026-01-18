@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Orders</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <h1>Orders</h1>
+</header>
+
+<div class="container">
+  <ul id="orders"></ul>
+</div>
+
+<script>
+fetch("/api/orders")
+  .then(res => res.json())
+  .then(data => {
+    const el = document.getElementById("orders");
+    data.forEach(o => {
+      el.innerHTML += `<li>Order ${o.orderId} — $${o.amount}</li>`;
+    });
+  });
+</script>
+
+</body>
+</html>
