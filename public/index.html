@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Everything Store</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header>
+  <h1>Everything Store</h1>
+  <a href="/login.html" class="admin-link">Admin</a>
+</header>
+
+<main class="container">
+  <div class="products" id="products"></div>
+
+  <h2>Cart</h2>
+  <ul id="cart"></ul>
+  <p><strong>Total: $<span id="total">0.00</span></strong></p>
+</main>
+
+<script>
+const products = [
+  { id: 1, name: "Amazing Gadget", price: 19.99 },
+  { id: 2, name: "Cool Book", price: 9.99 }
+];
+
+let cart = [];
+
+function renderProducts() {
+  const el = document.getElementById("products");
+  el.innerHTML = "";
+  products.forEach(p => {
+    el.innerHTML += `
+      <div class="product">
+        <h3>${p.name}</h3>
+        <p>$${p.price}</p>
+        <button onclick="addToCart(${p.id})">Add to cart</button>
+      </div>
+    `;
+  });
+}
+
+function addToCart(id) {
+  const p = products.find(x => x.id === id);
+  cart.push({ ...p, qty: 1 });
+  renderCart();
+}
+
+function renderCart() {
+  const el = document.getElementById("cart");
+  let total = 0;
+  el.innerHTML = "";
+  cart.forEach(i => {
+    total += i.price * i.qty;
+    el.innerHTML += `<li>${i.name}</li>`;
+  });
+  document.getElementById("total").textContent = total.toFixed(2);
+}
+
+renderProducts();
+</script>
+
+</body>
+</html>
